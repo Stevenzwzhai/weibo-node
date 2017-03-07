@@ -13,6 +13,9 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.2",
-    "session-mongoose": "^0.5.2"
+    "session-mongoose": "^0.5.2",
+    "express-session": "*",
+    "connect": "^2.0",
+    "moment": "*"
   }
 }
