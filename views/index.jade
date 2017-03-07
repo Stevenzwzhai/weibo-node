@@ -120,13 +120,14 @@ block content
                         | &nbsp表情
                     button#attach_btn.btn.btn-default(type="button", data-bool="false", style="position:relative;margin-left:6px;" onclick="showFileInputDiv(event)")
                         i.fa.fa-photo
-                        | &nbsp图片1
+                        | &nbsp图片
                         #fileInputDiv(style="background:#fff;z-index:99;box-shadow:0 0 1px 1px #ddd;display:none;padding:10px;width:540px;")
                             #s
                             #i
                             .row
+                                p#attach_image_prompt
                                 .col-md-12
-                                    input#attach_image.projectfile(type="file", name="attach_image", value="", multiple="")
+                                    input#attach_image.projectfile(type="file", name="attach_image", value="", multiple="multiple")
                 .col-md-2.pull-right
                     button.btn.btn-success.btn-sm(type="button", style="width:100%;background:#F76809;", onclick="storeBlog()") 发布
                 .col-md-3.pull-right(style="padding-right: 0;")

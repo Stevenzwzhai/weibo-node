@@ -117,31 +117,50 @@ $(function(){
             }
         }, {
             path: "dist/img/qq/",
+            name: "QQ表情",
             maxNum: 91,
             excludeNums: [41, 45, 54],
             file: ".gif",
             placeholder: "#qq_{alias}#"
         }]
     });
-projectfileoptions = {
-    uploadUrl: '/file-upload/create',
-    uploadAsync: true,
-    language : 'zh',
-    allowedPreviewTypes : [ 'image' ],
-    allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
-    maxFileSize : 2000,
-    maxFileNum: 9,
-    overwriteInitial:false,
-    showCaption:false,
-    layoutTemplates:{
-        footer: '<div class="file-thumbnail-footer" style="display:none">\n' +
-        '    <div class="file-caption-name" style="width:{width}">{caption}</div>\n' +
-        '    {progress} {actions}\n' +
-        '</div>'
+    //图片上传框配置
+    projectfileoptions = {
+        uploadUrl: '/file-upload/create',
+        uploadAsync: true,
+        language : 'zh',
+        allowedPreviewTypes : [ 'image' ],
+        allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
+        maxFileSize : 2000,
+        maxFileNum: 9,
+        showCaption:false,
+        showRemove:false,
+        showUpload:false,
+        layoutTemplates:{
+            preview: '<div class="file-preview {class}">\n' +
+            '    <div class="close fileinput-remove" onclick="hideFileInputDiv()">×</div>\n' +
+            '    <div class="{dropClass}">\n' +
+            '    <div class="file-preview-thumbnails">\n' +
+            '    </div>\n' +
+            '    <div class="clearfix"></div>' +
+            '    <div class="file-preview-status text-center text-success"></div>\n' +
+            '    <div class="kv-fileinput-error"></div>\n' +
+            '    </div>\n' +
+            '</div>',
+            footer: '<div class="file-thumbnail-footer">\n' +
+            '     {actions}\n' +
+            '</div>',
+            actions: '<div class="file-actions">\n' +
+            '    <div class="file-footer-buttons">\n' +
+            '         {delete} {zoom} {other}' +
+            '    </div>\n' +
+            '    {drag}\n' +
+            '    <div class="clearfix"></div>\n' +
+            '</div>',
+        }
     }
-}
 
-// 文件上传框
+    // 图片上传框生成
     $('input[class=projectfile]').each(function() {
         var imageurl = $(this).attr("value");
 
@@ -156,12 +175,26 @@ projectfileoptions = {
             $(this).fileinput(projectfileoptions);
         }
     });
+    attach_image_num = 0;
+    //图片上传选择回调事件
+    $('input#attach_image').on('fileloaded', function(event, file, previewId, index, reader) {
+        if($("#emoji_content").val() == ""){
+            $("#emoji_content").val($("#emoji_content").val() + '分享图片');
+        }
+        attach_image_num += 1;
+        $("#attach_image_prompt").html("共"+attach_image_num+"张,还能上传"+(9-attach_image_num)+"张");
+    }).on('filepreupload', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+            response = data.response, reader = data.reader;
+        console.log(response);
+    });
 });
+
 /**
  * 发表博客
  */
 function storeBlog() {
-    if($("#emoji_content").val() == ""){
+    /*if($("#emoji_content").val() == ""){
         toastr.error("请输入内容后再点发布");
     }else{
         var data = $("#emoji_content").val();
@@ -172,6 +205,9 @@ function storeBlog() {
             data: {content:data},
             async: true,
             success: function (e) {
+                /!*if($('#input-id').prop('files') != null){
+                    $('#input-id').fileinput('upload');
+                }*!/
                 console.log(e);
                 toastr.success('发布成功!');
                 $("#emoji_content").val("");
@@ -181,7 +217,8 @@ function storeBlog() {
                 console.log(msg.responseText);
             }
         });
-    }
+    }*/
+    $('#attach_image').fileinput('upload');
 }
 /**
  * 删除博客
@@ -215,6 +252,7 @@ function deleteBlog(e){
             });
         });
 }
+//打开图片上传区域
 function showFileInputDiv(event){
     if($(event.target).attr('type') == 'button'){
         var f = $("#attach_btn").attr('data-bool');
@@ -226,6 +264,14 @@ function showFileInputDiv(event){
             $("#fileInputDiv").css('display','none');
         }
     }
+    $("#attach_image_prompt").html("共"+attach_image_num+"张,还能上传"+(9-attach_image_num)+"张");
+}
+//关闭图片上传区域
+function hideFileInputDiv(){
+    $("#attach_btn").attr('data-bool','false');
+    $("#fileInputDiv").css('display','none');
+    $("#emoji_content").val($("#emoji_content").val().replace('分享图片', ''));
+    attach_image_num = 0;
 }
 function refreshBlog() {
     $.ajax({

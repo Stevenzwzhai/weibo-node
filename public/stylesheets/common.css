@@ -104,4 +104,8 @@ table tbody tr td:hover{
 #attach_btn:focus,#attach_btn:active{
     border-color:#ddd;
     outline:none;
+    background:#fff;
+}
+.emoji_container{
+    z-index:99;
 }

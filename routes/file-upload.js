@@ -10,6 +10,6 @@ var mongoose = require('mongoose');
  * 添加一个附件
  */
 router.post('/create',function(req, res, next){
-    res.json(req.body);
+    res.json({success:1});
 });
 module.exports = router;
