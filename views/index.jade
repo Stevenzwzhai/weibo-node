@@ -1,0 +1,300 @@
+extends layout
+
+block content
+  script(type="text/javascript", src="/javascripts/index.js")
+  .container(style="width:100%;background:url('/images/body_bg.jpg') no-repeat scroll center top;background-position:0 -50px;")
+    div(style="width:80%;margin-left:10%;background:rgba(0,0,0,0.3);")
+      .W_fixed_top(style="width:271px;position:fixed;top:60px;")
+        .lev_Box
+          h3.lev
+            a.txt
+              span 首页
+              span.badge.pull-right 1
+        .lev_Box
+          h3.lev
+            a.txt
+              span 我的收藏
+        .lev_Box
+          h3.lev
+            a.txt
+              span 我的赞
+        .lev_Line
+        .lev_Box
+          h3.lev
+            a.txt
+              span
+                i.fa.fa-fire
+                |&nbsp热门微博
+              span.badge.pull-right 3
+        .lev_Box
+          h3.lev
+            a.txt
+              span
+                i.fa.fa-video-camera
+                |&nbsp热门视频
+        .lev_Line
+        div#lev_scroll_part(style="height:410px;")
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  i.fa.fa-rss
+                  | &nbsp好友圈
+                span.badge.pull-right 4
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  i.fa.fa-heart
+                  | &nbsp特别关注
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp音乐人
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp热门人物
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp旅游
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp狗狗
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp明星
+                span.badge.pull-right 1
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp搞笑
+                span.badge.pull-right 2
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp历史
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp快男
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  | ·&nbsp哲理
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  i.fa.fa-user-circle-o
+                  | &nbsp群微博
+          .lev_Box
+            h3.lev
+              a.txt
+                span
+                  i.fa.fa-leaf
+                  | &nbsp悄悄关注
+      div(style="height:54px;")
+      .row
+        .col-md-6.col-md-offset-3
+          .bs-example(data-example-id="textarea-form-control",style="background:#fff;padding:10px;margin-top:10px;border-radius:4px;")
+            h5(style="color:#3399cc;line-height: 10px;display: inline-block;") 有什么新鲜事想告诉大家?
+            span.pull-right(style="font-size:10px;color:#F76809") 热门微博
+            textarea#emoji_content.form-control(rows="3")
+            .row(style="margin-top: 10px;")
+                .col-md-7
+                    button#emoji_btn.btn.btn-default(type="button")
+                        i.fa.fa-smile-o
+                        | &nbsp表情
+                    button#attach_btn.btn.btn-default(type="button", data-bool="false", style="position:relative;margin-left:6px;" onclick="showFileInputDiv(event)")
+                        i.fa.fa-photo
+                        | &nbsp图片
+                        #fileInputDiv(style="background:#fff;z-index:99;box-shadow:0 0 1px 1px #ddd;display:none;padding:10px;width:540px;")
+                            #s
+                            #i
+                            .row
+                                .col-md-12
+                                    input#attach_image.projectfile(type="file", name="attach_image", value="", multiple="")
+                .col-md-2.pull-right
+                    button.btn.btn-success.btn-sm(type="button", style="width:100%;background:#F76809;", onclick="storeBlog()") 发布
+                .col-md-3.pull-right(style="padding-right: 0;")
+                    select.form-control.input-sm
+                        option 公开
+                        option 好友圈
+                        option 仅自己可见
+                        option 群可见
+        .col-md-3(style="height:162px;padding-top:10px;padding-right:30px;padding-left:0;")
+            div(style="width:100%;height:50%;background:url('/images/body_bg.jpg');background-size:200%;background-position:-30px -12px;position:relative;")
+                div(style="width:60px;height:60px;border-radius:30px;position:absolute;bottom:-10px;left:50%;margin-left:-30px;border:4px rgba(255,255,255,0.6) solid;overflow:hidden;")
+                    img(src="/images/avatar/#{user.avatar}", width="100%")
+            div(style="width:100%;height:50%;background:#fff;")
+                div(style="text-align:center;padding-top:10px;")
+                    h4(style="display:inline-block;") #{user.name}&nbsp&nbsp
+                    span
+                        i.fa.fa-diamond
+                    span.badge(style="background:#F76809;margin-top:-2px;margin-left:10px") Lv.#{user.level}
+                .row
+                    .col-md-4(style="text-align:center;border-right:1px #aaa solid;height:30px;padding-right:0;")
+                        h4(style="font-size:18px") 190
+                        h5(style="font-weight:normal;font-size:11px;color:#888;") 关注
+                    .col-md-4(style="text-align:center;border-right:1px #aaa solid;height:30px;")
+                        h4(style="font-size:18px") 34
+                        h5(style="font-weight:normal;font-size:11px;color:#888;") 粉丝
+                    .col-md-4(style="text-align:center;height:30px;padding-left:0;")
+                        h4(style="font-size:18px") 21
+                        h5(style="font-weight:normal;font-size:11px;color:#888;") 微博
+      .row(style="margin-top: 10px;")
+        .col-md-6.col-md-offset-3
+          #carousel-example-generic.carousel.slide(data-ride="carousel")
+            // Wrapper for slides
+            .carousel-inner(role="listbox")
+              .item.active
+                img(src="/images/adv1.png", alt="...",style="width:100%;")
+                .carousel-caption
+              .item
+                img(src="/images/adv2.png", alt="...",style="width:100%;")
+                .carousel-caption
+              .item
+                img(src="/images/adv3.png", alt="...",style="width:100%;")
+                .carousel-caption
+              div(style="margin-top:10px;")
+                  // Nav tabs
+                  ul.nav.nav-tabs(role="tablist")
+                      li.active(role="presentation")
+                          a(href="#home", aria-controls="home", role="tab", data-toggle="tab") 全部
+                      li(role="presentation")
+                          a(href="#profile", aria-controls="profile", role="tab", data-toggle="tab") 原创
+                      li(role="presentation")
+                          a(href="#messages", aria-controls="messages", role="tab", data-toggle="tab") 图片
+                      li(role="presentation")
+                          a(href="#settings", aria-controls="settings", role="tab", data-toggle="tab") 视频
+                      li(role="presentation")
+                          a(href="#music", aria-controls="music", role="tab", data-toggle="tab") 音乐
+                      li(role="presentation")
+                          a(href="#articles", aria-controls="articles", role="tab", data-toggle="tab") 文章
+                  // Tab panes
+                  .tab-content(style="margin-top:10px;")
+                      #home.tab-pane.active(role="tabpanel")
+                          // each blog in blogs
+                      // blog模板
+                      #blog-panel-templet.blog-panel.panel.panel-default(style="display:none;")
+                          .panel-body(style="padding-bottom:0;background:#fff;margin-bottom:10px;")
+                              .row
+                                  .col-md-1(style="width:70px;")
+                                      .avatar(style="width:50px;height:50px;border-radius:25px;overflow:hidden")
+                                          img(src="/images/avatar/{$blog.user.avatar$}", style="width:100%;")
+                                  .col-md-9
+                                      .inline(style="width:100%;line-height:25px;font-weight:bold;") {$blog.user.name$}
+                                          span(style="font-weight:normal;color:#333;font-size:11px;")
+                                              i.fa.fa-diamond
+                                          span(style="font-weight:normal;color:orange;font-size:11px;") {$blog.user.level$}级会员
+                                      .inline(style="width:100%;line-height:25px;color:#bbb;font-size:10px;") {$blog.created_atz$}
+                                          span(style="font-weight:normal;color:#bbb;font-size:10px;") 来自 {$blog.from$}
+                                  .col-md-1
+                                      button.btn.btn-default.dropdown-toggle(type="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="true", style="border:none;")
+                                          span.caret
+                                      ul.dropdown-menu(aria-labelledby="dropdownMenu1")
+                                          li
+                                              a(id="{$blog.id$}" onclick="deleteBlog(this.id)") 删除
+                              .row
+                                  .blog-content
+                                      p {$blog.content$}
+                              .row
+                                  .btn-group.btn-group-justified(role="group", aria-label="...")
+                                      .btn-group(role="group")
+                                          button.btn.btn-default(type="button",style="border:none;border-right:1px #ccc solid;")
+                                              i.fa.fa-comment-o &nbsp评论&nbsp{$blog.comments.length$}
+                                      .btn-group(role="group")
+                                          button.btn.btn-default(type="button",style="border:none;")
+                                              i.fa.fa-thumbs-o-up &nbsp赞&nbsp{$blog.praise$}
+                      #profile.tab-pane(role="tabpanel") 2
+                      #messages.tab-pane(role="tabpanel") 3
+                      #settings.tab-pane(role="tabpanel") 4
+                      #music.tab-pane(role="tabpanel") 5
+                      #articles.tab-pane(role="tabpanel") 6
+        .col-md-3(style="padding-right:30px;padding-left:0;")
+            div(style="width:100%;height:188px;background:#fff;")
+                div(style="height:37px;border-bottom:1px #ccc solid;padding-left:10px;")
+                    h4(style="color:#f77676;line-height:37px;font-size:13px;") 主播红人榜
+                div(style="height:37px;line-height:37px;border-bottom:1px #ccc solid;padding-left:10px;padding-right:10px;")
+                    span.badge(style="background:#f77676;margin-top:-4px;") 1
+                    | &nbsp&nbsp苏小白Alex
+                    span.pull-right(style="color:#F76809") 785484...
+                div(style="height:37px;line-height:37px;border-bottom:1px #ccc solid;padding-left:10px;padding-right:10px;")
+                    span.badge(style="background:#f77676;margin-top:-4px;") 2
+                    | &nbsp&nbsp骄阳老师_
+                    span.pull-right(style="color:#F76809") 615412...
+                div(style="height:37px;line-height:37px;border-bottom:1px #ccc solid;padding-left:10px;padding-right:10px;")
+                    span.badge(style="background:#f77676;margin-top:-4px;") 3
+                    | &nbsp&nbsp是你李公子啊
+                    span.pull-right(style="color:#F76809") 608182...
+                div(style="height:37px;line-height:37px;padding-left:10px;padding-right:10px;text-align:center;")
+                    a 查看更多
+                        i.fa.fa-angle-double-right
+            div(style="width:100%;height:318px;background:#fff;margin-top:10px;padding:10px;")
+                img(src="/images/0061WYIRly1fd9ngqg7dnj305606yaaf.jpg" width="100%")
+            div(style="width:100%;height:auto;background:#fff;margin-top:10px;")
+                div(style="height:37px;border-bottom:1px #ccc solid;padding-left:10px;")
+                    h4(style="display:inline-block;color:#333;line-height:37px;font-size:13px;") 热门话题
+                    a.pull-right(style="line-height:37px;color:#888;")
+                        i.fa.fa-refresh
+                        |&nbsp换一换&nbsp&nbsp
+                div(style="padding:16px;border-bottom:1px #ccc solid;")
+                    ul
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #续三生情缘领免费会员#
+                                span.badge 推荐
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #歌手#
+                                span.pull-right 38.9亿
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #v5了我的朴灿烈#
+                                span.pull-right 12.6亿
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #法定婚龄降到18岁#
+                                span.pull-right 7446万
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #CCTV朗读者#
+                                span.pull-right 4.4亿
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #2017中国足球超级联赛#
+                                span.pull-right 394万
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #想听李健#
+                                span.pull-right 610万
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #跟郎朗学钢琴#
+                                span.pull-right 2147万
+                        li(style="padding:4px 2px;")
+                            p
+                                a(style="color:#888") #我的第一首单曲循环#
+                                span.pull-right 1.1亿
+                div(style="height:37px;line-height:37px;padding-left:10px;padding-right:10px;text-align:center;")
+                    a 查看更多
+                        i.fa.fa-angle-double-right
+            div(style="width:100%;height:auto;background:#fff;margin-top:10px;")
+                div(style="height:37px;border-bottom:1px #ccc solid;padding-left:10px;")
+                    h4(style="display:inline-block;color:#333;line-height:37px;font-size:13px;") 公告栏
+                div(style="padding:16px;")
+                    p(style="color:#f77676") 《全国辟谣平台》
+                    p(style="color:#f77676") 《首都互联网协会发布坚守七条底线倡议书》

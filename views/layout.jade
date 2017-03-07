@@ -1,0 +1,88 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(href="/stylesheets/jquery.dataTables.min.css", rel="stylesheet")
+        link(href="/stylesheets/bootstrap.css", rel="stylesheet")
+        link(href="/stylesheets/demo.css", rel="stylesheet")
+        link(href="/stylesheets/zTreeStyle/zTreeStyle.css", rel="stylesheet")
+        link(href="/stylesheets/toastr.css", rel="stylesheet")
+        link(href="/stylesheets/common.css", rel="stylesheet")
+        link(href="/stylesheets/font-awesome.css", rel="stylesheet")
+        link(href="/stylesheets/jquery.jscrollpane.css", rel="stylesheet")
+        link(href="/stylesheets/jquery.jscrollpane.lozenge.css", rel="stylesheet")
+        link(href="/stylesheets/jquery.mCustomScrollbar.min.css", rel="stylesheet")
+        link(href="/stylesheets/jquery.emoji.css", rel="stylesheet")
+        link(href="/stylesheets/sweet-alert.css", rel="stylesheet")
+        link(href="/stylesheets/fileinput.css", rel="stylesheet")
+        script(type="text/javascript", src="/javascripts/jquery.min.js")
+        script(type="text/javascript", src="/javascripts/highlight.pack.js")
+        script(type="text/javascript", src="/javascripts/bootstrap.js")
+        script(type="text/javascript", src="/javascripts/jquery.dataTables.min.js")
+        script(type="text/javascript", src="/javascripts/common.js")
+        script(type="text/javascript", src="/javascripts/dataTables_zh.js")
+        script(type="text/javascript", src="/javascripts/jquery.ztree.core.js")
+        script(type="text/javascript", src="/javascripts/jquery.ztree.exedit.js")
+        script(type="text/javascript", src="/javascripts/toastr.js")
+        script(type="text/javascript", src="/javascripts/jquery.validate.js")
+        script(type="text/javascript", src="/javascripts/messages_zh.js")
+        script(type="text/javascript", src="/javascripts/jquery.jscrollpane.min.js")
+        script(type="text/javascript", src="/javascripts/jquery.mousewheel.js")
+        script(type="text/javascript", src="/javascripts/jquery.mousewheel-3.0.6.min.js")
+        script(type="text/javascript", src="/javascripts/jquery.mCustomScrollbar.min.js")
+        script(type="text/javascript", src="/javascripts/jquery.emoji.js")
+        script(type="text/javascript", src="/javascripts/sweet-alert.js")
+        script(type="text/javascript", src="/javascripts/fileinput.js")
+        script(type="text/javascript", src="/javascripts/fileinput_zh.js")
+    body(style="background:rgb(31,22,15);")
+        nav.navbar.navbar-default.navbar-fixed-top(style="margin-bottom:0;border-radius:0;")
+            .container-fluid
+                .navbar-header
+                    a.navbar-brand(href="#")
+                        img(alt="Brand", src="/images/WB_logo.png",style="margin-top:-5px;")
+                #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                    form.navbar-form.navbar-left(role="search")
+                        .form-group
+                            input.form-control(type="text", placeholder="大家正在搜：")
+                        button.btn.btn-default(type="submit",style="margin-left:10px;") 搜索
+                    ul.nav.navbar-nav.navbar-right
+                        li
+                            a(href="#")
+                                i.fa.fa-home
+                                |&nbsp首页
+                        li
+                            a(href="#")
+                                i.fa.fa-video-camera
+                                |&nbsp视频
+                        li
+                            a(href="#")
+                                i.fa.fa-rocket
+                                |&nbsp发现
+                        li
+                            a(href="#")
+                                i.fa.fa-gamepad
+                                |&nbsp游戏
+                        li.dropdown
+                            a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false")
+                                i.fa.fa-user &nbsp#{user.name}
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href="#") 账号设置
+                                li
+                                    a(href="#") 会员中心
+                                li
+                                    a(href="#") V认证
+                                li
+                                    a(href="#") 账号安全
+                                li
+                                    a(href="#") 隐私设置
+                                li
+                                    a(href="#") 消息设置
+                                li
+                                    a(href="#") 帮助中心
+                                li.divider(role="separator")
+                                li
+                                    a(href="/logout") 退出
+        block content

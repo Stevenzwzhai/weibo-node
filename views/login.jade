@@ -1,0 +1,53 @@
+doctype html
+html
+    head
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(href="/stylesheets/jquery.dataTables.min.css", rel="stylesheet")
+        link(href="/stylesheets/bootstrap.css", rel="stylesheet")
+        link(href="/stylesheets/demo.css", rel="stylesheet")
+        link(href="/stylesheets/zTreeStyle/zTreeStyle.css", rel="stylesheet")
+        link(href="/stylesheets/toastr.css", rel="stylesheet")
+        link(href="/stylesheets/common.css", rel="stylesheet")
+        link(href="/stylesheets/font-awesome.css", rel="stylesheet")
+        script(type="text/javascript", src="/javascripts/jquery.min.js")
+        script(type="text/javascript", src="/javascripts/bootstrap.js")
+        script(type="text/javascript", src="/javascripts/jquery.dataTables.min.js")
+        script(type="text/javascript", src="/javascripts/common.js")
+        script(type="text/javascript", src="/javascripts/dataTables_zh.js")
+        script(type="text/javascript", src="/javascripts/jquery.ztree.core.js")
+        script(type="text/javascript", src="/javascripts/jquery.ztree.exedit.js")
+        script(type="text/javascript", src="/javascripts/toastr.js")
+        script(type="text/javascript", src="/javascripts/jquery.validate.js")
+        script(type="text/javascript", src="/javascripts/jquery.validate.custom.js")
+        script(type="text/javascript", src="/javascripts/messages_zh.js")
+        script(type="text/javascript", src="/javascripts/login.js")
+    body(style="background:rgb(26,26,24);background:#ccc;")
+        .row
+            .col-md-3.col-md-offset-7
+                .panel.panel-default(style="margin-top:100px;border:none;")
+                    .panel-heading(style="background:rgb(247,103,29);color:#fff;") 欢迎登录微博
+                    .panel-body(style="padding:50px 0 50px 50px;")
+                        form.form-inline#userForm
+                            .form-group(style="padding:10px;")
+                                label.sr-only(for="name")
+                                input#name.form-control(name="name", type="text", placeholder="邮箱/会员账号/手机号")
+                            .form-group(style="padding:10px;")
+                                label.sr-only(for="password")
+                                input#password.form-control(name="password", type="password", placeholder="请输入密码")
+                            .form-group(style="padding:10px;")
+                                .row
+                                    .col-md-6
+                                        label.sr-only(for="J_codetext")
+                                        input#J_codetext.form-control(name="QRcode", type="text", placeholder="请输入验证码", style="width:100%")
+                                    .col-md-6
+                                        canvas#myCanvas(class="J_codeimg", onclick="createCode()" width="100%" height="34px")
+                            .checkbox(style="display:inline-block;padding:10px;")
+                                label
+                                    input(name="remember", type="checkbox", value="true")
+                                    |记住我
+                            .checkbox(style="display:inline-block;padding:10px;")
+                                a.pull-right 忘记密码
+                            button#login(type="submit", onclick="trueLogin()", style="display:none;")
+                        button.btn.btn-default(style="margin-left:10px;width:198px;background:rgb(247,103,29);color:#fff;" onclick="toLogin()") 登录
+
+
