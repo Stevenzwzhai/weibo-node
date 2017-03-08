@@ -126,8 +126,9 @@ $(function(){
     });
     //图片上传框配置
     projectfileoptions = {
-        uploadUrl: '/file-upload/create',
+        uploadUrl: '/blogs/create',
         uploadAsync: true,
+        fileSizeGetter : true,
         language : 'zh',
         allowedPreviewTypes : [ 'image' ],
         allowedFileExtensions : [ 'jpg', 'png', 'gif' ],
@@ -156,7 +157,12 @@ $(function(){
             '    </div>\n' +
             '    {drag}\n' +
             '    <div class="clearfix"></div>\n' +
-            '</div>',
+            '</div>'
+        },
+        uploadExtraData: function (previewId, index) {
+            var obj = {};
+            obj['content'] = $("#emoji_content").val();
+            return obj;
         }
     }
 
@@ -183,10 +189,12 @@ $(function(){
         }
         attach_image_num += 1;
         $("#attach_image_prompt").html("共"+attach_image_num+"张,还能上传"+(9-attach_image_num)+"张");
-    }).on('filepreupload', function(event, data, previewId, index) {
-        var form = data.form, files = data.files, extra = data.extra,
-            response = data.response, reader = data.reader;
-        console.log(response);
+    }).on('filebatchuploadcomplete', function(event, files, extra) {
+        //上传成功后执行事件
+        $(".close.fileinput-remove").click();
+        toastr.success('发布成功!');
+        $("#emoji_content").val("");
+        refreshBlog();
     });
 });
 
@@ -194,10 +202,11 @@ $(function(){
  * 发表博客
  */
 function storeBlog() {
-    /*if($("#emoji_content").val() == ""){
+    if($("#emoji_content").val() == ""){
         toastr.error("请输入内容后再点发布");
     }else{
-        var data = $("#emoji_content").val();
+        $('#attach_image').fileinput('upload');
+        /*var data = $("#emoji_content").val();
         $.ajax({
             url: '/blogs/create',
             type: 'POST',
@@ -205,9 +214,6 @@ function storeBlog() {
             data: {content:data},
             async: true,
             success: function (e) {
-                /!*if($('#input-id').prop('files') != null){
-                    $('#input-id').fileinput('upload');
-                }*!/
                 console.log(e);
                 toastr.success('发布成功!');
                 $("#emoji_content").val("");
@@ -216,9 +222,8 @@ function storeBlog() {
             error: function (msg) {
                 console.log(msg.responseText);
             }
-        });
-    }*/
-    $('#attach_image').fileinput('upload');
+        });*/
+    }
 }
 /**
  * 删除博客
@@ -280,6 +285,7 @@ function refreshBlog() {
         dataType: 'json',
         async: true,
         success: function (e) {
+            console.log(e);
             $("#home").empty();
             for(var i=e.length-1; i>=0; i--){
                 var html = $("#blog-panel-templet").html()

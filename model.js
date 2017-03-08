@@ -14,7 +14,7 @@ var BlogSchema = mongoose.Schema({
     updated_at: Date,
     from: String,
     content: String,
-    attach: [{path: String}],
+    attach: [],
     comments: [{content: String, data: Date, user_id: Number}],
     praise: Number
 });
