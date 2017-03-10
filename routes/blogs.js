@@ -56,11 +56,11 @@ router.post('/createImgByBlogId', function(req, res, next){
                 var finalname = inputFile.originalFilename;//获取文件名称
                 //获取文件后缀
                 var suffix = finalname.split('.').pop().toLowerCase();
-                var new_path = "./public/uploadfiles/" + crypto.createHash('md5').update(finalname).digest('hex') + '.' + suffix;//获取文件名
+                var new_path = "./public/uploadfiles/" + crypto.createHash('md5').update(finalname + fields.blog_id[0]).digest('hex') + '.' + suffix;//获取文件名
                 var old_path = inputFile.path;//获取文件原路径
                 fs.renameSync(old_path, new_path);
                 var uploadfile = new UploadFile({
-                    filename: crypto.createHash('md5').update(finalname).digest('hex') + '.' + suffix,
+                    filename: crypto.createHash('md5').update(finalname + fields.blog_id[0]).digest('hex') + '.' + suffix,
                     filesize: inputFile.size,
                     filetype: inputFile.headers['content-type'],
                     created_at: new Date()
@@ -82,9 +82,23 @@ router.post('/createImgByBlogId', function(req, res, next){
  */
 router.get('/delete/:id',function(req, res, next){
     var id = mongoose.Types.ObjectId(req.params.id);
-    Blog.remove({_id:id}, function(err){
+    //删照片
+    Blog.findOne({_id:id}, 'attach', function(err, blog){
         if(err) return handleError(err);
-        res.json({success:1});
+        console.log(blog.attach);
+        for(var i = 0; i<blog.attach.length; i++){
+            //删文件
+            fs.unlinkSync("./public/uploadfiles/" + blog.attach[i].filename);
+            //删除数据
+            UploadFile.remove({_id:blog.attach[i]._id}, function(err){
+                if(err) return handleError(err);
+            });
+        }
+        //删完照片删博客
+        Blog.remove({_id:id}, function(err){
+            if(err) return handleError(err);
+            res.json({success:1});
+        });
     });
 });
 /**
