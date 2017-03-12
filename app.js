@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
 /**
  * 数据库配置文件
  */
@@ -55,7 +58,6 @@ app.use(session({
 app.use('/', index);
 app.use('/users', users);
 app.use('/blogs', blogs);
-app.use('/file-upload', uploadfile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
