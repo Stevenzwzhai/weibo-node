@@ -23,49 +23,8 @@ router.get('/index', function(req, res, next) {
     });
 
 });
-router.get('/register', function(req, res, next){
-    res.render('register');
-});
-router.post('/register', function(req, res, next){
-    User.find({name: req.body.name},function(err,result){
-        if(err) return handleError(err);
-        if(result.length == 0){
-            var user = new User({
-                name: req.body.name,
-                password: req.body.password,
-                level: 1,
-                avatar: 'avatar_default.jpg'
-            });
-            user.save(function(err, user){
-                if(err) return handleError(err);
-                req.session.user_id = user._id;
-                res.json({success:1});
-            });
-        }else{
-            res.json({success:2});
-        }
-    });
-});
-router.get('/login',function(req, res, next){
-    res.render('login');
-});
-router.post('/login',function(req, res, next){
-    User.findOne({name:req.body.name},'',function(err, user){
-        if(err) return handleError(err);
-        console.log(user);
-        if(user == null){
-            res.json({error:1});
-        }else{
-            if(user.password == req.body.password){
-                req.session.user_id = user._id;
-                req.session.from = '微博weibo.com';
-                res.json({success:1});
-            }else{
-                res.json({error:2});
-            }
-        }
-    });
-});
+
+
 router.get('/logout', function(req, res, next){
     req.session.user_id = null;
     res.redirect('/');

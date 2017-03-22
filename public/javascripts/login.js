@@ -9,6 +9,9 @@ $(function(){
 function toLogin(){
     $("button#login").click();
 }
+function toRegister(){
+    window.location.href = '/register';
+}
 function trueLogin(){
         $("#userForm").validate({
             rules: {

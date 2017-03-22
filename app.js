@@ -32,6 +32,8 @@ var bodyParser = require('body-parser');
 
 
 var index = require('./routes/index');
+var register = require('./routes/register');
+var login = require('./routes/login');
 var users = require('./routes/users');
 var blogs = require('./routes/blogs');
 var uploadfile = require('./routes/file-upload');
@@ -56,6 +58,8 @@ app.use(session({
 }));
 
 app.use('/', index);
+app.use('/login', login);
+app.use('/register', register);
 app.use('/users', users);
 app.use('/blogs', blogs);
 

@@ -16,6 +16,10 @@
     "session-mongoose": "^0.5.2",
     "express-session": "*",
     "connect": "^2.0",
-    "moment": "*"
+    "connect-multiparty":"*",
+    "multiparty":"*",
+    "crypto":"*",
+    "async":"*",
+    "node-gyp":"*"
   }
 }
